@@ -9,15 +9,15 @@ import org.jongo.MongoCollection;
 import org.jongo.MongoCursor;
 import play.data.DynamicForm;
 import play.data.Form;
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
-
-// class to Json
-import play.libs.Json;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+// class to Json
 
 /**
  * Created by constant on 29/11/2016.
@@ -27,6 +27,7 @@ public class TodosController extends Controller {
     private Jongo jongo;
     private MongoCollection todosCollection;
 
+    // constructor
     public TodosController() {
         this.db = new DbAccess();
         this.jongo = new Jongo(this.db.getDB());
@@ -50,8 +51,6 @@ public class TodosController extends Controller {
     // get todo from id
     public Result getTodo(String id) {
         models.Todo todo;
-        String jsonStr = null;
-
         String query = "{'id': '" + StringEscapeUtils.escapeEcmaScript(id) + "'}";
 
         try {
@@ -60,7 +59,7 @@ public class TodosController extends Controller {
 
         } catch(Exception e) {
             // no match, return error
-            return ok("Object from id " + id + " not found");
+            return notFound("Object from id " + id + " not found");
         }
     }
 
@@ -70,7 +69,7 @@ public class TodosController extends Controller {
             this.todosCollection.remove("{}");
             return ok();
         } catch(Exception e) {
-            return ok("Error when deleting all todos: " + e.getMessage());
+            return notFound("Error when deleting all todos: " + e.getMessage());
         }
     }
 
@@ -82,7 +81,7 @@ public class TodosController extends Controller {
             this.todosCollection.remove(query);
             return ok("OK");
         } catch(Exception e) {
-            return ok("Error while deleting todo from id (" + id + "): " + e.getMessage());
+            return notFound("Error while deleting todo from id (" + id + "): " + e.getMessage());
         }
     }
 
@@ -98,9 +97,9 @@ public class TodosController extends Controller {
         // insert query
         try {
             this.todosCollection.insert(query);
-            return ok();
+            return created();
         } catch(Exception e) {
-            return ok("Error while inserting todo: " + e.getMessage());
+            return internalServerError("Error while inserting todo: " + e.getMessage());
         }
     }
 
@@ -110,17 +109,21 @@ public class TodosController extends Controller {
         // find id query
         String idQuery = "{'id': '" + StringEscapeUtils.escapeEcmaScript(id) + "'}";
 
-        todoToChanged = this.todosCollection.findOne(idQuery).as(models.Todo.class);
-        // toggle state
         try {
-            if (todoToChanged.getState()) {
-                this.todosCollection.update(idQuery).with("{$set: {state: false}}");
-            } else {
-                this.todosCollection.update(idQuery).with("{$set: {state: true}}");
+            todoToChanged = this.todosCollection.findOne(idQuery).as(models.Todo.class);
+            // toggle state
+            try {
+                if (todoToChanged.getState()) {
+                    this.todosCollection.update(idQuery).with("{$set: {state: false}}");
+                } else {
+                    this.todosCollection.update(idQuery).with("{$set: {state: true}}");
+                }
+                return ok();
+            } catch(Exception e) {
+                return internalServerError("Error while toggling todo: " + e.getMessage());
             }
-            return ok();
         } catch(Exception e) {
-            return ok("Error while toggling todo: " + e.getMessage());
+            return notFound();
         }
     }
 
@@ -138,7 +141,7 @@ public class TodosController extends Controller {
             this.todosCollection.update(idQuery).with(insertQuery);
             return ok();
         } catch(Exception e) {
-            return ok(e.getMessage());
+            return internalServerError(e.getMessage());
         }
     }
 }
