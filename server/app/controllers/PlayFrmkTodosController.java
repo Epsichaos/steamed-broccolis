@@ -55,7 +55,7 @@ public class PlayFrmkTodosController extends Controller {
     */
 
     // Get all the todos, display list
-    public static Result getTodos() {
+    public Result getTodos() {
         DbAccess db = new DbAccess();
         Jongo jongo = new Jongo(db.getDB());
         List<models.Todo> todoList = new ArrayList<models.Todo>();
@@ -84,7 +84,7 @@ public class PlayFrmkTodosController extends Controller {
     }
 
     // Add todo method
-    public static Result addTodo() {
+    public Result addTodo() {
         List<models.Todo> todoList = new ArrayList<models.Todo>();
 
         DbAccess db = new DbAccess();
@@ -110,7 +110,7 @@ public class PlayFrmkTodosController extends Controller {
     }
 
     // Handle delete requests
-    public static Result deleteTodo(String id) {
+    public Result deleteTodo(String id) {
         List<models.Todo> todoList = new ArrayList<models.Todo>();
 
         DbAccess db = new DbAccess();
@@ -131,7 +131,7 @@ public class PlayFrmkTodosController extends Controller {
     }
 
     // Handle change state requests
-    public static Result changeState(String id) {
+    public Result changeState(String id) {
         List<models.Todo> todoList = new ArrayList<models.Todo>();
         models.Todo todoToChanged;
 
