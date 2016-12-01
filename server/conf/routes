@@ -15,10 +15,11 @@ GET     /old/todos/todo/update/:id      controllers.PlayFrmkTodosController.chan
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
+# API
 GET     /todos                          controllers.TodosController.getTodos()
 GET     /todos/todo/:id                 controllers.TodosController.getTodo(id: String)
 POST    /todos                          controllers.TodosController.addTodo()
 DELETE  /todos                          controllers.TodosController.deleteTodos()
 DELETE  /todos/todo/:id                 controllers.TodosController.deleteTodo(id: String)
-# PUT     /todos/todo/:id/toggle
-# PUT     /todos/todo/:id
+PUT     /todos/todo/:id/toggle          controllers.TodosController.toggleTodo(id: String)
+PUT     /todos/todo/:id                 controllers.TodosController.updateTodo(id: String)
