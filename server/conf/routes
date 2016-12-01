@@ -1,0 +1,26 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           controllers.Application.index
+# GET     /hello                      controllers.HelloController.index
+
+# Routes for Todos-list
+GET     /todos                      controllers.TodosController.getTodos()
+POST    /todos/todo/create          controllers.TodosController.addTodo()
+# Beurk
+GET     /todos/todo/delete/:id      controllers.TodosController.deleteTodo(id: String)
+# Beurk
+GET     /todos/todo/update/:id      controllers.TodosController.changeState(id: String)
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+# GET /todos
+# GET /todos/todo/:id
+# POST /todos
+# DELETE /todos
+# DELETE /todos/todo/:id
+# PUT /todos/todo/:id/toggle
+# PUT /todos/todo/:id
