@@ -2,9 +2,9 @@
 
 @main(" ") {
 
-    @* Display New todo form *@
+    @* Display New todo form ciusfhvdn *@
     <h1>Create Todo</h1>
-    <form method="post" action="@routes.TodosController.addTodo()">
+    <form method="post" action="@routes.PlayFrmkTodosController.addTodo()">
         <input type="text" name="text" /><br/>
         <input type="submit" value="Post Todo" />
     </form>
@@ -18,8 +18,8 @@
                 [@todo.getId()]: @todo.getText() (@todo.getState())
                 </span>
 
-                <a href="/todos/todo/update/@todo.getId">Change state</a> &nbsp;
-                <a href="/todos/todo/delete/@todo.getId">Delete</a>
+                <a href="/old/todos/todo/update/@todo.getId">Change state</a> &nbsp;
+                <a href="/old/todos/todo/delete/@todo.getId">Delete</a>
             </li>
         }
     </ul>

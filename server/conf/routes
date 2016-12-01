@@ -7,20 +7,18 @@ GET     /                           controllers.Application.index
 # GET     /hello                      controllers.HelloController.index
 
 # Routes for Todos-list
-GET     /todos                      controllers.TodosController.getTodos()
-POST    /todos/todo/create          controllers.TodosController.addTodo()
-# Beurk
-GET     /todos/todo/delete/:id      controllers.TodosController.deleteTodo(id: String)
-# Beurk
-GET     /todos/todo/update/:id      controllers.TodosController.changeState(id: String)
+GET     /old/todos                      controllers.PlayFrmkTodosController.getTodos()
+POST    /old/todos/todo/create          controllers.PlayFrmkTodosController.addTodo()
+GET     /old/todos/todo/delete/:id      controllers.PlayFrmkTodosController.deleteTodo(id: String)
+GET     /old/todos/todo/update/:id      controllers.PlayFrmkTodosController.changeState(id: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
-# GET /todos
-# GET /todos/todo/:id
-# POST /todos
-# DELETE /todos
-# DELETE /todos/todo/:id
-# PUT /todos/todo/:id/toggle
-# PUT /todos/todo/:id
+GET     /todos                          controllers.TodosController.getTodos()
+GET     /todos/todo/:id                 controllers.TodosController.getTodo(id: String)
+POST    /todos                          controllers.TodosController.addTodo()
+DELETE  /todos                          controllers.TodosController.deleteTodos()
+DELETE  /todos/todo/:id                 controllers.TodosController.deleteTodo(id: String)
+# PUT     /todos/todo/:id/toggle
+# PUT     /todos/todo/:id

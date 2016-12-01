@@ -1,40 +1,58 @@
 package controllers;
 
 // processing JSON
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+// Database
 import models.DbAccess;
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.jongo.Jongo;
 import org.jongo.MongoCollection;
 import org.jongo.MongoCursor;
-import play.data.DynamicForm;
-import play.data.Form;
+
+// Play
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.todos;
 
+// Forms
+import play.data.DynamicForm;
+import play.data.Form;
+
+// Java lists
 import java.util.ArrayList;
 import java.util.List;
+
+// generate UUID
 import java.util.UUID;
 
-// Database
-// Play
-// Forms
-// Java lists
-// generate UUID
 // Escape Strings
+import  org.apache.commons.lang3.StringEscapeUtils;
 
 /**
  * Created by constant on 29/11/2016.
  */
-public class TodosController extends Controller {
+public class PlayFrmkTodosController extends Controller {
 
+    //private DbAccess db;
+    //private Jongo jongo;
 
-    public TodosController() {
+    public PlayFrmkTodosController() {
+        //this.db = new DbAccess();
+        //this.jongo = new Jongo(db.getDB());
+    }
+/*
+    public static Result index() {mana
+        DbAccess db = new DbAccess();
+        Jongo jongo = new Jongo(db.getDB());
+
+        MongoCollection todosCollection = jongo.getCollection("todos");
+        models.Todo todoElement = todosCollection.findOne().as(models.Todo.class);
+        //return ok(todos.render(todo.getText()));
+        return ok(todos.render(todoElement));
 
     }
+    */
 
     // Get all the todos, display list
     public static Result getTodos() {
@@ -43,6 +61,7 @@ public class TodosController extends Controller {
         List<models.Todo> todoList = new ArrayList<models.Todo>();
 
         MongoCollection todosCollection = jongo.getCollection("todos");
+        //MongoCursor<models.Todo> todoCursor = todosCollection.find().as(models.Todo.class);
         MongoCursor<models.Todo> todoCursor = todosCollection.find().as(models.Todo.class);
 
         while(todoCursor.hasNext()) {
@@ -60,94 +79,10 @@ public class TodosController extends Controller {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-
-        return ok(jsonStr);
-    }
-
-    public static Result getTodo(String id) {
-        DbAccess db = new DbAccess();
-        Jongo jongo = new Jongo(db.getDB());
-        List<models.Todo> todoList = new ArrayList<models.Todo>();
-        String jsonStr = null;
-
-        MongoCollection todosCollection = jongo.getCollection("todos");
-
-        String query = "{'id': '" + id + "'}";
-
-        MongoCursor<models.Todo> todoCursor = todosCollection.find(query).as(models.Todo.class);
-
-        if (todoCursor.hasNext()) {
-            models.Todo todoBuffer = todoCursor.next();
-            todoList.add(todoBuffer);
-
-            ObjectMapper mapper = new ObjectMapper();
-
-            /* Object -> JSON Template */
-            try {
-                jsonStr = mapper.writeValueAsString(todoList);
-                System.out.println(jsonStr);
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-            }
-        } else {
-            jsonStr = " {} ";
-        }
-
-        return ok(jsonStr);
-    }
-
-    public static Result deleteTodos() {
-        DbAccess db = new DbAccess();
-        Jongo jongo = new Jongo(db.getDB());
-
-        MongoCollection todosCollection = jongo.getCollection("todos");
-        todosCollection.remove("{}");
-
-        return ok();
-    }
-
-    public static Result deleteTodo(String id) {
-        DbAccess db = new DbAccess();
-        Jongo jongo = new Jongo(db.getDB());
-        List<models.Todo> todoList = new ArrayList<models.Todo>();
-
-        MongoCollection todosCollection = jongo.getCollection("todos");
-
-        String query = "{'id': '" + id + "'}";
-
-        todosCollection.remove(query);
-
-        return ok();
-    }
-
-    public static Result addTodo() {
-        DbAccess db = new DbAccess();
-        Jongo jongo = new Jongo(db.getDB());
-        List<models.Todo> todoList = new ArrayList<models.Todo>();
-
-        MongoCollection todosCollection = jongo.getCollection("todos");
-        DynamicForm dynamicForm = Form.form().bindFromRequest();
-
-        // create query
-        String escapedText = StringEscapeUtils.escapeEcmaScript(dynamicForm.get("text"));
-        String query = " { text: \"" + escapedText + "\", state: false, id: '" + UUID.randomUUID() + "' } ";
-
-        // insert query
-        todosCollection.insert(query);
-
-        /*
-        MongoCursor<models.Todo> todoCursor = todosCollection.find().as(models.Todo.class);
-
-        while(todoCursor.hasNext()) {
-            models.Todo todoBuffer = todoCursor.next();
-            todoList.add(todoBuffer);
-        }
-
+        // return play template rendering
         return ok(todos.render(todoList));
-        */
-        return ok();
     }
-/*
+
     // Add todo method
     public static Result addTodo() {
         List<models.Todo> todoList = new ArrayList<models.Todo>();
@@ -223,5 +158,4 @@ public class TodosController extends Controller {
         return ok(todos.render(todoList));
 
     }
-  */
 }
