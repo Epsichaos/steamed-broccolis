@@ -1,6 +1,6 @@
 package models;
 
-import org.jongo.marshall.jackson.oid.MongoId;
+import org.jongo.marshall.jackson.oid.ObjectId;
 
 /**
  * Created by constant on 29/11/2016.
@@ -12,25 +12,13 @@ public class Todo {
     private boolean state;
     private String id;
     // map Mongo Id
-    @MongoId
-    private String mongoId;
+    @ObjectId
+    private String _id;
 
     public Todo() {
         this.text = "";
         this.state = false;
     }
-
-    /*
-    public void models.Todo(text) {
-        this.text = text;
-        this.state = false;
-    }
-    public void models.Todo(text, state, id) {
-        this.text = text;
-        this.completed = state;
-        this.id = id;
-    }
-    */
 
     public String getText() {
         return this.text;

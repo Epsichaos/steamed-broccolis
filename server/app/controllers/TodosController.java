@@ -11,8 +11,8 @@ import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.todos;
 
+// class to Json
 import play.libs.Json;
 
 import java.util.ArrayList;
@@ -30,78 +30,55 @@ import java.util.UUID;
  * Created by constant on 29/11/2016.
  */
 public class TodosController extends Controller {
-    //private static DbAccess db;
-    //private static Jongo jongo;
+    private DbAccess db;
+    private Jongo jongo;
+    private MongoCollection todosCollection;
 
     public TodosController() {
-        //db = new DbAccess();
-        //jongo = new Jongo(db.getDB());
+        this.db = new DbAccess();
+        this.jongo = new Jongo(this.db.getDB());
+        this.todosCollection = this.jongo.getCollection("todos");
     }
 
     // Get all the todos, display list
-    public static Result getTodos() {
-        DbAccess db = new DbAccess();
-        Jongo jongo = new Jongo(db.getDB());
+    public Result getTodos() {
         List<models.Todo> todoList = new ArrayList<>();
 
-        MongoCollection todosCollection = jongo.getCollection("todos");
-        MongoCursor<models.Todo> todoCursor = todosCollection.find().as(models.Todo.class);
+        MongoCursor<models.Todo> todoCursor = this.todosCollection.find().as(models.Todo.class);
 
         while(todoCursor.hasNext()) {
             models.Todo todoBuffer = todoCursor.next();
             todoList.add(todoBuffer);
         }
 
-        return ok(play.libs.Json.toJson(todoList));
+        return ok(Json.toJson(todoList));
     }
 
-    public static Result getTodo(String id) {
-        DbAccess db = new DbAccess();
-        Jongo jongo = new Jongo(db.getDB());
-        //List<models.Todo> todoList = new ArrayList<models.Todo>();
+    public Result getTodo(String id) {
         models.Todo todo;
         String jsonStr = null;
 
-        MongoCollection todosCollection = jongo.getCollection("todos");
-
         String query = "{'id': '" + id + "'}";
+        todo = this.todosCollection.findOne(query).as(models.Todo.class);
 
-        //MongoCursor<models.Todo> todoCursor = todosCollection.find(query).as(models.Todo.class);
-        todo = todosCollection.findOne(query).as(models.Todo.class);
-
-        return ok(play.libs.Json.toJson(todo));
+        return ok(Json.toJson(todo));
     }
 
-    public static Result deleteTodos() {
-        DbAccess db = new DbAccess();
-        Jongo jongo = new Jongo(db.getDB());
-
-        MongoCollection todosCollection = jongo.getCollection("todos");
-        todosCollection.remove("{}");
+    public Result deleteTodos() {
+        this.todosCollection.remove("{}");
 
         return ok();
     }
 
-    public static Result deleteTodo(String id) {
-        DbAccess db = new DbAccess();
-        Jongo jongo = new Jongo(db.getDB());
-        List<models.Todo> todoList = new ArrayList<models.Todo>();
-
-        MongoCollection todosCollection = jongo.getCollection("todos");
-
+    public Result deleteTodo(String id) {
         String query = "{'id': '" + id + "'}";
-
-        todosCollection.remove(query);
+        this.todosCollection.remove(query);
 
         return ok();
     }
 
-    public static Result addTodo() {
-        DbAccess db = new DbAccess();
-        Jongo jongo = new Jongo(db.getDB());
-        List<models.Todo> todoList = new ArrayList<models.Todo>();
+    public Result addTodo() {
 
-        MongoCollection todosCollection = jongo.getCollection("todos");
         DynamicForm dynamicForm = Form.form().bindFromRequest();
 
         // create query
@@ -109,46 +86,28 @@ public class TodosController extends Controller {
         String query = " { text: \"" + escapedText + "\", state: false, id: '" + UUID.randomUUID() + "' } ";
 
         // insert query
-        todosCollection.insert(query);
+        this.todosCollection.insert(query);
 
-        /*
-        MongoCursor<models.Todo> todoCursor = todosCollection.find().as(models.Todo.class);
-
-        while(todoCursor.hasNext()) {
-            models.Todo todoBuffer = todoCursor.next();
-            todoList.add(todoBuffer);
-        }
-
-        return ok(todos.render(todoList));
-        */
         return ok();
     }
 
-    public static Result toggleTodo(String id) {
-        DbAccess db = new DbAccess();
-        Jongo jongo = new Jongo(db.getDB());
+    public Result toggleTodo(String id) {
         models.Todo todoToChanged;
 
-        MongoCollection todosCollection = jongo.getCollection("todos");
-
         String idQuery = "{'id': '" + id + "'}";
-        todoToChanged = todosCollection.findOne(idQuery).as(models.Todo.class);
+        todoToChanged = this.todosCollection.findOne(idQuery).as(models.Todo.class);
         if(todoToChanged.getState()) {
-            todosCollection.update(idQuery).with("{$set: {state: false}}");
+            this.todosCollection.update(idQuery).with("{$set: {state: false}}");
         }
         else {
-            todosCollection.update(idQuery).with("{$set: {state: true}}");
+            this.todosCollection.update(idQuery).with("{$set: {state: true}}");
         }
 
         return ok();
 
     }
 
-    public static Result updateTodo(String id) {
-        DbAccess db = new DbAccess();
-        Jongo jongo = new Jongo(db.getDB());
-
-        MongoCollection todosCollection = jongo.getCollection("todos");
+    public Result updateTodo(String id) {
 
         DynamicForm dynamicForm = Form.form().bindFromRequest();
         // create query
@@ -157,7 +116,7 @@ public class TodosController extends Controller {
         String insertQuery = "{$set:" + newText + "}";
         String idQuery = "{'id': '" + id + "'}";
 
-        todosCollection.update(idQuery).with(insertQuery);
+        this.todosCollection.update(idQuery).with(insertQuery);
 
         return ok();
 
