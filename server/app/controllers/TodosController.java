@@ -19,13 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-// Database
-// Play
-// Forms
-// Java lists
-// generate UUID
-// Escape Strings
-
 /**
  * Created by constant on 29/11/2016.
  */
@@ -40,7 +33,7 @@ public class TodosController extends Controller {
         this.todosCollection = this.jongo.getCollection("todos");
     }
 
-    // Get all the todos, display list
+    // Get all the todos
     public Result getTodos() {
         List<models.Todo> todoList = new ArrayList<>();
 
@@ -54,29 +47,46 @@ public class TodosController extends Controller {
         return ok(Json.toJson(todoList));
     }
 
+    // get todo from id
     public Result getTodo(String id) {
         models.Todo todo;
         String jsonStr = null;
 
-        String query = "{'id': '" + id + "'}";
-        todo = this.todosCollection.findOne(query).as(models.Todo.class);
+        String query = "{'id': '" + StringEscapeUtils.escapeEcmaScript(id) + "'}";
 
-        return ok(Json.toJson(todo));
+        try {
+            todo = this.todosCollection.findOne(query).as(models.Todo.class);
+            return ok(Json.toJson(todo));
+
+        } catch(Exception e) {
+            // no match, return error
+            return ok("Object from id " + id + " not found");
+        }
     }
 
+    // delete all todos
     public Result deleteTodos() {
-        this.todosCollection.remove("{}");
-
-        return ok();
+        try {
+            this.todosCollection.remove("{}");
+            return ok();
+        } catch(Exception e) {
+            return ok("Error when deleting all todos: " + e.getMessage());
+        }
     }
 
+    // delete todo from id
     public Result deleteTodo(String id) {
-        String query = "{'id': '" + id + "'}";
-        this.todosCollection.remove(query);
+        String query = "{'id': '" + StringEscapeUtils.escapeEcmaScript(id) + "'}";
 
-        return ok();
+        try {
+            this.todosCollection.remove(query);
+            return ok("OK");
+        } catch(Exception e) {
+            return ok("Error while deleting todo from id (" + id + "): " + e.getMessage());
+        }
     }
 
+    // add todo
     public Result addTodo() {
 
         DynamicForm dynamicForm = Form.form().bindFromRequest();
@@ -86,29 +96,37 @@ public class TodosController extends Controller {
         String query = " { text: \"" + escapedText + "\", state: false, id: '" + UUID.randomUUID() + "' } ";
 
         // insert query
-        this.todosCollection.insert(query);
-
-        return ok();
+        try {
+            this.todosCollection.insert(query);
+            return ok();
+        } catch(Exception e) {
+            return ok("Error while inserting todo: " + e.getMessage());
+        }
     }
 
+    // toggle todo state from id
     public Result toggleTodo(String id) {
         models.Todo todoToChanged;
+        // find id query
+        String idQuery = "{'id': '" + StringEscapeUtils.escapeEcmaScript(id) + "'}";
 
-        String idQuery = "{'id': '" + id + "'}";
         todoToChanged = this.todosCollection.findOne(idQuery).as(models.Todo.class);
-        if(todoToChanged.getState()) {
-            this.todosCollection.update(idQuery).with("{$set: {state: false}}");
+        // toggle state
+        try {
+            if (todoToChanged.getState()) {
+                this.todosCollection.update(idQuery).with("{$set: {state: false}}");
+            } else {
+                this.todosCollection.update(idQuery).with("{$set: {state: true}}");
+            }
+            return ok();
+        } catch(Exception e) {
+            return ok("Error while toggling todo: " + e.getMessage());
         }
-        else {
-            this.todosCollection.update(idQuery).with("{$set: {state: true}}");
-        }
-
-        return ok();
-
     }
 
+    // update todo from id. Todo new text is wrapped into a form element which field is 'text'
     public Result updateTodo(String id) {
-
+        // bind form
         DynamicForm dynamicForm = Form.form().bindFromRequest();
         // create query
         String escapedText = StringEscapeUtils.escapeEcmaScript(dynamicForm.get("text"));
@@ -116,9 +134,11 @@ public class TodosController extends Controller {
         String insertQuery = "{$set:" + newText + "}";
         String idQuery = "{'id': '" + id + "'}";
 
-        this.todosCollection.update(idQuery).with(insertQuery);
-
-        return ok();
-
+        try {
+            this.todosCollection.update(idQuery).with(insertQuery);
+            return ok();
+        } catch(Exception e) {
+            return ok(e.getMessage());
+        }
     }
 }
