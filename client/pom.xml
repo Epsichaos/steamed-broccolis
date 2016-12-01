@@ -101,5 +101,6 @@
             <version>${gin.version}</version>
             <scope>provided</scope>
         </dependency>
+
     </dependencies>
 </project>
