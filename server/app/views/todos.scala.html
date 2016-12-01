@@ -1,0 +1,26 @@
+@(todos: List[models.Todo])
+
+@main(" ") {
+
+    @* Display New todo form *@
+    <h1>Create Todo</h1>
+    <form method="post" action="@routes.TodosController.addTodo()">
+        <input type="text" name="text" /><br/>
+        <input type="submit" value="Post Todo" />
+    </form>
+
+    @* Display Todo list *@
+    <h1>Todos List</h1>
+    <ul>
+        @for(todo <- todos) {
+            <li>
+                <span style="text-decoration:@if(todo.getState() == true){line-through} else {none};">
+                [@todo.getId()]: @todo.getText() (@todo.getState())
+                </span>
+
+                <a href="/todos/todo/update/@todo.getId">Change state</a> &nbsp;
+                <a href="/todos/todo/delete/@todo.getId">Delete</a>
+            </li>
+        }
+    </ul>
+}
