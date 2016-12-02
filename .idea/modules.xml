@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../new-project-name/client.iml" filepath="$PROJECT_DIR$/../new-project-name/client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server/.idea/modules/play-todos.iml" filepath="$PROJECT_DIR$/server/.idea/modules/play-todos.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server/.idea/modules/play-todos-build.iml" filepath="$PROJECT_DIR$/server/.idea/modules/play-todos-build.iml" />
     </modules>
   </component>
 </project>
