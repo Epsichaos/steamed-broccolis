@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="GWTodo:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="GWTodo-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="GWTodo:war exploded" />
+    </root>
+  </artifact>
+</component>

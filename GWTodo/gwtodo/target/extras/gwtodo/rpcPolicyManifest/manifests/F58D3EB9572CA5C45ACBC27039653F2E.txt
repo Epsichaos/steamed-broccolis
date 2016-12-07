@@ -1,0 +1,2 @@
+serviceClass: net.antidot.gwtodo.client.application.GreetingService
+path: A1AE323976D3FF21845AC401BB52B48B.gwt.rpc

@@ -3,7 +3,7 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index
+GET     /                               controllers.Application.index
 # GET     /hello                      controllers.HelloController.index
 
 # Routes for Todos-list
@@ -12,14 +12,21 @@ POST    /old/todos/todo/create          controllers.PlayFrmkTodosController.addT
 GET     /old/todos/todo/delete/:id      controllers.PlayFrmkTodosController.deleteTodo(id: String)
 GET     /old/todos/todo/update/:id      controllers.PlayFrmkTodosController.changeState(id: String)
 
+GET     /assets/gwtodo/todos                            controllers.TodosController.getTodos()
+PUT     /assets/gwtodo/todos/todo/:id/toggle            controllers.TodosController.toggleTodo(id: String)
+DELETE  /assets/gwtodo/todos                                   controllers.TodosController.deleteTodos()
+DELETE  /assets/gwtodo/todos/todo/:id                          controllers.TodosController.deleteTodo(id: String)
+POST    /assets/gwtodo/todos                            controllers.TodosController.addTodo()
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 # API
-GET     /todos                          controllers.TodosController.getTodos()
-GET     /todos/todo/:id                 controllers.TodosController.getTodo(id: String)
-POST    /todos                          controllers.TodosController.addTodo()
-DELETE  /todos                          controllers.TodosController.deleteTodos()
-DELETE  /todos/todo/:id                 controllers.TodosController.deleteTodo(id: String)
-PUT     /todos/todo/:id/toggle          controllers.TodosController.toggleTodo(id: String)
-PUT     /todos/todo/:id                 controllers.TodosController.updateTodo(id: String)
+#GET     /todos                          controllers.TodosController.getTodos()
+
+#GET     /todos/todo/:id                 controllers.TodosController.getTodo(id: String)
+#POST    /todos                          controllers.TodosController.addTodo()
+#DELETE  /todos                          controllers.TodosController.deleteTodos()
+#DELETE  /todos/todo/:id                 controllers.TodosController.deleteTodo(id: String)
+#PUT     /todos/todo/:id/toggle          controllers.TodosController.toggleTodo(id: String)
+#PUT     /todos/todo/:id                 controllers.TodosController.updateTodo(id: String)

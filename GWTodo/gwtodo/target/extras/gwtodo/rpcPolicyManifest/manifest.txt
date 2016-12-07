@@ -1,0 +1,3 @@
+# Module gwtodo
+# RPC service class, partial path of RPC policy file
+net.antidot.gwtodo.client.application.GreetingService, A1AE323976D3FF21845AC401BB52B48B.gwt.rpc

@@ -97,7 +97,8 @@ public class TodosController extends Controller {
         // insert query
         try {
             this.todosCollection.insert(query);
-            return created();
+            models.Todo todo = this.todosCollection.findOne(query).as(models.Todo.class);
+            return created(Json.toJson(todo));
         } catch(Exception e) {
             return internalServerError("Error while inserting todo: " + e.getMessage());
         }
