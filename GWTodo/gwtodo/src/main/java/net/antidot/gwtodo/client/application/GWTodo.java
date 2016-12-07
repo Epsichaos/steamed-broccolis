@@ -18,6 +18,7 @@ import net.antidot.gwtodo.client.application.model.Todo;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.fusesource.restygwt.client.Defaults;
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.MethodCallback;
 
@@ -49,6 +50,9 @@ public class GWTodo implements EntryPoint {
      * This is the entry point method.
      */
     public void onModuleLoad() {
+        // set root for http requests
+        Defaults.setServiceRoot("/");
+
         mainPanel.add(formPanel);
 
         HTML html = new HTML("<br><hr><br>");

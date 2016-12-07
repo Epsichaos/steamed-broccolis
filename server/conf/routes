@@ -22,11 +22,10 @@ POST    /assets/gwtodo/todos                            controllers.TodosControl
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 # API
-#GET     /todos                          controllers.TodosController.getTodos()
-
-#GET     /todos/todo/:id                 controllers.TodosController.getTodo(id: String)
-#POST    /todos                          controllers.TodosController.addTodo()
-#DELETE  /todos                          controllers.TodosController.deleteTodos()
-#DELETE  /todos/todo/:id                 controllers.TodosController.deleteTodo(id: String)
-#PUT     /todos/todo/:id/toggle          controllers.TodosController.toggleTodo(id: String)
-#PUT     /todos/todo/:id                 controllers.TodosController.updateTodo(id: String)
+GET     /todos                          controllers.TodosController.getTodos()
+GET     /todos/todo/:id                 controllers.TodosController.getTodo(id: String)
+POST    /todos                          controllers.TodosController.addTodo()
+DELETE  /todos                          controllers.TodosController.deleteTodos()
+DELETE  /todos/todo/:id                 controllers.TodosController.deleteTodo(id: String)
+PUT     /todos/todo/:id/toggle          controllers.TodosController.toggleTodo(id: String)
+PUT     /todos/todo/:id                 controllers.TodosController.updateTodo(id: String)
