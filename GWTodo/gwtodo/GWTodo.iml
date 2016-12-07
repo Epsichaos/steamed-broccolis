@@ -18,13 +18,9 @@
       <configuration>
         <setting name="additionalCompilerParameters" value="-Xss8M" />
         <setting name="compilerMaxHeapSize" value="1024" />
-        <setting name="gwtScriptOutputStyle" value="DETAILED" />
         <setting name="gwtSdkUrl" value="file://$MAVEN_REPOSITORY$/com/google/gwt/gwt-dev/2.8.0/" />
         <setting name="gwtSdkType" value="maven" />
         <setting name="webFacet" value="Web" />
-        <packaging>
-          <module name="net.antidot.gwtodo.GWTodoJUnit" enabled="false" />
-        </packaging>
       </configuration>
     </facet>
   </component>
@@ -38,7 +34,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="restygwt-2.2.0" level="project" />
     <orderEntry type="library" name="Maven: org.fusesource.restygwt:restygwt:2.2.0" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.7.2" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.7.0" level="project" />
