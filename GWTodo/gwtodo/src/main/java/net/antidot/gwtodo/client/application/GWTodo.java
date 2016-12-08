@@ -10,9 +10,11 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import net.antidot.gwtodo.client.application.resources.BindResources;
 import net.antidot.gwtodo.client.application.service.TodoRestService;
 import net.antidot.gwtodo.client.application.model.Todo;
 import java.util.ArrayList;
@@ -42,29 +44,61 @@ public class GWTodo implements EntryPoint {
     private VerticalPanel mainPanel = new VerticalPanel();
     private FlexTable todoTable = new FlexTable();
     private HorizontalPanel formPanel = new HorizontalPanel();
-    //private FormPanel formPanel = new FormPanel();
+    private HorizontalPanel imagePanel = new HorizontalPanel();
     private TextBox todoTextBox = new TextBox();
     private Button addTodoButton = new Button();
+    private Image homeImage = new Image(BindResources.GWT_RESOURCES.psyDuckImage());
 
     /**
      * This is the entry point method.
      */
     public void onModuleLoad() {
+        // Inject CSS
+        BindResources.GWT_RESOURCES.cssresources().ensureInjected();
         // set root for http requests
         Defaults.setServiceRoot("/");
 
+        // center elements
+        mainPanel.setStyleName(BindResources.GWT_RESOURCES.cssresources().centeredRule());
+        formPanel.setSpacing(10);
+        formPanel.setStyleName(BindResources.GWT_RESOURCES.cssresources().centeredRule());
+        //imagePanel.setStyleName("centered-style");
+
+        // add styles to widgets
+        // todoTextBox
+        todoTextBox.setStyleName(BindResources.GWT_RESOURCES.cssresources().textBox());
+        // addTodoButton
+        addTodoButton.setStyleName(BindResources.GWT_RESOURCES.cssresources().addTodoButton());
+        // todoTable
+        todoTable.setStyleName(BindResources.GWT_RESOURCES.cssresources().flexTable());
+        // homeImage
+        homeImage.setStyleName(BindResources.GWT_RESOURCES.cssresources().homeImageStyle());
+
+        HTML htmlDivider = new HTML("<br><hr><br>");
+
+        // add panels
+        mainPanel.add(imagePanel);
         mainPanel.add(formPanel);
-
-        HTML html = new HTML("<br><hr><br>");
-        mainPanel.add(html);
-
+        mainPanel.add(htmlDivider);
         mainPanel.add(todoTable);
 
+        imagePanel.add(homeImage);
+
+        // set todo table first row
         todoTable.setText(0, 0, "id");
         todoTable.setText(0, 1, "text");
         todoTable.setText(0, 2, "state");
         todoTable.setText(0, 3, "toggle");
         todoTable.setText(0, 4, "delete");
+
+        // style first row
+        //todoTable.getCellFormatter().setStyleName(0, 0, "cellStyle");
+        //todoTable.getCellFormatter().setStyleName(0, 1, "cellStyle");
+        //todoTable.getCellFormatter().setStyleName(0, 2, "cellStyle");
+
+        // add input / button to form panel
+        formPanel.add(todoTextBox);
+        formPanel.add(addTodoButton);
 
         // addTodo Button definition & Click Handler
         addTodoButton.setText("Add Todo");
@@ -82,9 +116,6 @@ public class GWTodo implements EntryPoint {
                }
            });
         });
-
-        formPanel.add(todoTextBox);
-        formPanel.add(addTodoButton);
 
         // Get all todos and add then to the panel
         todoService.getTodos(new MethodCallback<List<Todo>>() {
@@ -115,6 +146,7 @@ public class GWTodo implements EntryPoint {
         Button btnDelete = new Button();
         btnToggle = new Button();
         btnToggle.setText("Toggle");
+        btnToggle.setStyleName(BindResources.GWT_RESOURCES.cssresources().btnToggle());
         btnToggle.addClickHandler(clickEvent -> {
             todoService.toggleTodo(todo.getId(), new MethodCallback<Void>() {
                 @Override
@@ -134,7 +166,8 @@ public class GWTodo implements EntryPoint {
         });
         // Set delete button
         btnDelete = new Button();
-        btnDelete.setText("x");
+        btnDelete.setText("Delete");
+        btnDelete.setStyleName(BindResources.GWT_RESOURCES.cssresources().btnDelete());
         btnDelete.addClickHandler(clickEvent -> {
             todoService.deleteTodo(todo.getId(), new MethodCallback<Void>() {
                 @Override
@@ -155,5 +188,6 @@ public class GWTodo implements EntryPoint {
         todoTable.setText(rowCount, 2, String.valueOf(todo.getState()));
         todoTable.setWidget(rowCount, 3, btnToggle);
         todoTable.setWidget(rowCount, 4, btnDelete);
+
     }
 }

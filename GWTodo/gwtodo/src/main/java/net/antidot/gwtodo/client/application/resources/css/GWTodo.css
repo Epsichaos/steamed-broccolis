@@ -1,0 +1,61 @@
+/** Add css rules here for your application. */
+
+
+/** Example rules used by the template application (remove for your app) */
+h1 {
+  font-size: 2em;
+  font-weight: bold;
+  color: #000000;
+  margin: 40px 0px 70px;
+  text-align: center;
+}
+
+.centeredRule {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.addTodoButton {
+  background-color: #2C82C9;
+  border-radius: 5px;
+  color: #FFFFFF;
+}
+
+.textBox {
+  border-radius: 5px;
+  height: 25px;
+}
+
+.btnToggle {
+  background-color: #2C82C9;
+  border-radius: 5px;
+  color: #FFFFFF;
+}
+
+.btnDelete {
+  background-color: #B8312F;
+  border-radius: 5px;
+  color: #FFFFFF;
+}
+
+.flexTable {
+  border-top: thin solid #111111;
+  border-left: thin solid #111111;
+  border-right: thin solid #111111;
+  border-bottom: thin solid #111111;
+  border-radius: 5px;
+}
+
+.cellStyle {
+  border-top: thin solid #111111;
+  border-left: thin solid #111111;
+  border-right: thin solid #111111;
+  border-bottom: thin solid #111111;
+}
+
+.homeImageStyle {
+  height: 50%;
+  width: 50%;
+  margin-left: 30%;
+  /* - ??? - width: 40%; */
+}

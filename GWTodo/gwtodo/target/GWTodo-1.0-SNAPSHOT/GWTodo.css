@@ -5,30 +5,56 @@
 h1 {
   font-size: 2em;
   font-weight: bold;
-  color: #777777;
+  color: #000000;
   margin: 40px 0px 70px;
   text-align: center;
 }
 
-.sendButton {
-  display: block;
-  font-size: 16pt;
+.centered-style {
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/** Most GWT widgets already have a style name defined */
-.gwt-DialogBox {
-  width: 400px;
+.addtodobutton-style {
+  background-color: #2C82C9;
+  border-radius: 5px;
+  color: #FFFFFF;
 }
 
-.dialogVPanel {
-  margin: 5px;
+.textBoxStyle {
+  border-radius: 5px;
+  height: 25px;
 }
 
-.serverResponseLabelError {
-  color: red;
+.btnToggleStyle {
+  background-color: #2C82C9;
+  border-radius: 5px;
+  color: #FFFFFF;
 }
 
-/** Set ids using widget.getElement().setId("idOfElement") */
-#closeButton {
-  margin: 15px 6px 6px;
+.btnDeleteStyle {
+  background-color: #B8312F;
+  border-radius: 5px;
+  color: #FFFFFF;
+}
+
+.flexTableStyle {
+  border-top: thin solid #111111;
+  border-left: thin solid #111111;
+  border-right: thin solid #111111;
+  border-bottom: thin solid #111111;
+  border-radius: 5px;
+}
+
+.cellStyle {
+  border-top: thin solid #111111;
+  border-left: thin solid #111111;
+  border-right: thin solid #111111;
+  border-bottom: thin solid #111111;
+}
+
+.homeImageStyle {
+  width: 40%;
+  /* - ??? - */
+  margin-left: 35%;
 }
