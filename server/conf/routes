@@ -3,7 +3,7 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index
+GET     /                           controllers.Assets.at(path="/public/testGwt-1.0-SNAPSHOT", file = "testGwt.html")
 
 # Routes for Todos-list
 GET     /todos                      controllers.TodosController.getTodos

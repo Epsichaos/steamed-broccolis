@@ -2,11 +2,13 @@ package controllers;
 
 // processing JSON
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
 import com.mongodb.WriteResult;
 import models.Todo;
 import org.bson.types.ObjectId;
+import org.jongo.FindOne;
 import org.jongo.Jongo;
 import org.jongo.MongoCollection;
 import play.Logger;
@@ -58,14 +60,22 @@ public class TodosController extends Controller {
 
     public Result addTodo() {
         Result res =  badRequest("Text not defined");
-        Map<String, String[]> todoContent = request().body().asFormUrlEncoded();
-        if (todoContent != null && todoContent.get("text") != null) {
-            models.Todo todo = new models.Todo(todoContent.get("text")[0]);
-            todos.insert(todo);
-            res = created("Todo created : " + todo.getText());
+        JsonNode todoContent = request().body().asJson();
+        if (todoContent != null
+                && todoContent.get("text").asText() != null
+                && !todoContent.get("text").asText().isEmpty()) {
+            String text = todoContent.get("text").asText().toLowerCase();
+            Todo exist = todos.findOne("{text: #}", text).as(Todo.class);
+            if (exist == null) {
+                models.Todo todo = new models.Todo(text);
+                todos.insert(todo);
+                res = created("Todo created : " + todo.getText());
+            } else {
+                res = ok("Todo '" + text + "' already exist !");
+            }
         }
         else {
-            Logger.info("POST : Invalid request body : " + Json.toJson(todoContent));
+            Logger.info("POST : Invalid request body : \"" + Json.toJson(todoContent) + "\"");
         }
         return res;
     }
