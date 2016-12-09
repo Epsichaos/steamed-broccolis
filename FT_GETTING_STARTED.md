@@ -64,7 +64,7 @@ NB: On OSX, you don't have the `service` command to stop/start/restart and handl
 
 3. Play Framework
 
-Fluid Topics team is developing the software using IntelliJ IDEA. You won't need to install or do anything about Play, as the IDE allows you to create automatically a Play project, without doing anything else.
+FT team is developing the software using IntelliJ IDEA. You won't need to install or do anything about Play, as the IDE allows you to create automatically a Play project, without doing anything else.
 
 4. Google Web Toolkit
 
@@ -100,7 +100,7 @@ The first thing to do is create 2 different projects, one for the server and one
 * Play 2 App
 * Enter the name and select the module to build (e.g. your project)
 
-#### 1.3 Server configuration & structure
+#### 1.3 Server structure
 
 The server is organized under the following structure:
 
@@ -139,18 +139,31 @@ The server is organized under the following structure:
 * `target/`: Folder containing the compiled sources.
 * `test/`: Tests.
 
+#### 1.4 Routes
+
+The routes are defined in `conf/routes`. You can easily define routes according the following syntax:
+
+```
+# Home page
+GET    /                            controllers.Application.index
+POST   /example                     controllers.ExampleController.postExample()
+GET    /example/:id                 controllers.ExampleController.getExample(id: String)
+```
+
+In the route file, you define which function of which controller should be called after an HTTP request on a specific route. You also have an example above of the use of parameters in the routes.
+
+#### 1.5 Controllers
+
+
+
+#### 1.6 Using Jongo plugin for MongoDB
+
+
+
 ### 2. GWT project
 
-Resources
----------
+#### 2.1 Create the project [IntelliJ]
 
-FT is developed with the following libraries:
+#### 2.2 Run the client [IntelliJ]
 
-- MongoDB
-- Play Framework
-- Google Web Toolkit (GWT) & GWTP
-
-You'll need also a few tools:
-
-- Jongo (Java MongoDB connection)
-- SBT / Maven / Activator -> building tools
+#### 2.3 GWT Structure
