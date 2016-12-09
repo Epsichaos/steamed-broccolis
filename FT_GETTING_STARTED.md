@@ -158,7 +158,33 @@ In the route file, you define which function of which controller should be calle
 
 #### 1.6 Using Jongo plugin for MongoDB
 
+The first step is to add Jongo and Mongo into the project dependencies:
 
+```
+// jongo dependency
+libraryDependencies += "org.jongo" % "jongo" % "1.3.0"
+
+// mongo dependency
+libraryDependencies += "org.mongodb" % "mongo-java-driver" % "3.4.0"
+```
+
+Then, you can connect to the BD with the following syntax:
+
+```
+// /!\ getDB will be deprecated soon
+databaseAccess = new MongoClient().getDB(DB_NAME)
+```
+
+This instance of DB is then imported into Jongo. And you can access the collections and make requests using the Jongo syntax:
+
+```
+jongoDb = new Jongo([MongoClient object]databaseAccess);
+collection = jongoDb.getCollection(COLLECTION_NAME);
+// Return the results and cast them into the class defined in models, of name CLASS_NAME
+collection.find().as(models.CLASS_NAME);
+// Insert an object according a query = {...}
+collection.insert(query)
+```
 
 ### 2. GWT project
 
