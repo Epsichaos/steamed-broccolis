@@ -36,24 +36,24 @@ If your JAVA version is not recognized, you can install the sdk you previously d
 Install MongoDB with the command line.
 ```
   [Debian]
-  apt-get install mongodb-org
+      apt-get install mongodb-org
   [OSX]
-  brew install mongo
+      brew install mongo
 ```
 MongoDB Cheats:
 
 ```
   [Run mongo shell]
-  mongo
+      mongo
   [Show db]
-  show databases
+      show databases
   [Connect to db]
-  use db_name
+      use db_name
   [List `tables`]
-  show collections
+      show collections
   [insert|remove|update]
-  db_name.collection_name.insert({...})
-  db_name.collection_name.findOne()
+      db_name.collection_name.insert({...})
+      db_name.collection_name.findOne()
 ```
 
 NB: On OSX, you don't have the `service` command to stop/start/restart and handle your services, but you can use `brew services` - which is nice:
@@ -143,7 +143,7 @@ The server is organized under the following structure:
 
 The routes are defined in `conf/routes`. You can easily define routes according the following syntax:
 
-```
+```java
 # Home page
 GET    /                            controllers.Application.index
 POST   /example                     controllers.ExampleController.postExample()
@@ -170,14 +170,14 @@ libraryDependencies += "org.mongodb" % "mongo-java-driver" % "3.4.0"
 
 Then, you can connect to the BD with the following syntax:
 
-```
+```java
 // /!\ getDB will be deprecated soon
 databaseAccess = new MongoClient().getDB(DB_NAME)
 ```
 
 This instance of DB is then imported into Jongo. And you can access the collections and make requests using the Jongo syntax:
 
-```
+```java
 jongoDb = new Jongo([MongoClient object]databaseAccess);
 collection = jongoDb.getCollection(COLLECTION_NAME);
 // Return the results and cast them into the class defined in models, of name CLASS_NAME
