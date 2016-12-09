@@ -178,9 +178,9 @@ databaseAccess = new MongoClient().getDB(DB_NAME)
 This instance of DB is then imported into Jongo. And you can access the collections and make requests using the Jongo syntax:
 
 ```java
-jongoDb = new Jongo([MongoClient object]databaseAccess);
+jongoDb = new Jongo(/* MongoClient object */ DB_NAME_MONGOCLIENT_INSTANCIED);
 collection = jongoDb.getCollection(COLLECTION_NAME);
-// Return the results and cast them into the class defined in models, of name CLASS_NAME
+// Return the results and `bind` them into the class defined in models, of name CLASS_NAME
 collection.find().as(models.CLASS_NAME);
 // Insert an object according a query = {...}
 collection.insert(query)
@@ -188,7 +188,28 @@ collection.insert(query)
 
 ### 2. GWT project
 
-#### 2.1 Create the project [IntelliJ]
+#### 2.0 configuration
+
+Set your $PATH variable and add GWT path in your `~/.bashrc`:
+
+```
+export PATH=$PATH:"/path/to/gwt/"
+```
+
+#### 2.1 Create the project [webAppCreator]
+
+GWT has a tool for creating a GWT project on the command line, for example:
+
+```
+    webAppCreator -out foo -templates maven,sample,readme com.example.foo.Foo
+```
+
+You will be able to import the project generated into IntelliJ when it's finish:
+
+* File > New > Project from existing sources
+
+You will probably need to specify your GWT JDK path to IntelliJ. Don't forget to use Java 8 in IntelliJ.
+
 
 #### 2.2 Run the client [IntelliJ]
 
