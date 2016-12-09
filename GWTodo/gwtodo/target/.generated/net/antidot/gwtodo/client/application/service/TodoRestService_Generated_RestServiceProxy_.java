@@ -141,4 +141,28 @@ public class TodoRestService_Generated_RestServiceProxy_ implements net.antidot.
       callback.onFailure(__method,__e);
     }
   }
+  public void updateTodo(java.lang.String id, java.lang.String text, org.fusesource.restygwt.client.MethodCallback<net.antidot.gwtodo.client.application.model.Todo> callback) {
+    final java.lang.String final_id = id;
+    final java.lang.String final_text = text;
+    final org.fusesource.restygwt.client.Method __method =
+    getResource()
+    .resolve("/todos/todo/"+(id== null? null : com.google.gwt.http.client.URL.encodePathSegment(id))+"")
+    .addQueryParam("text", text)
+    .put();
+    __method.setDispatcher(this.dispatcher);
+    __method.header(org.fusesource.restygwt.client.Resource.HEADER_ACCEPT, org.fusesource.restygwt.client.Resource.CONTENT_TYPE_JSON);
+    try {
+      __method.send(new org.fusesource.restygwt.client.AbstractRequestCallback<net.antidot.gwtodo.client.application.model.Todo>(__method, callback) {
+        protected net.antidot.gwtodo.client.application.model.Todo parseResult() throws Exception {
+          try {
+            return net.antidot.gwtodo.client.application.model.Todo_Generated_JsonEncoderDecoder_.INSTANCE.decode(com.google.gwt.json.client.JSONParser.parse(__method.getResponse().getText()));
+          } catch (Throwable __e) {
+            throw new org.fusesource.restygwt.client.ResponseFormatException("Response was NOT a valid JSON document", __e);
+          }
+        }
+      });
+    } catch (com.google.gwt.http.client.RequestException __e) {
+      callback.onFailure(__method,__e);
+    }
+  }
 }

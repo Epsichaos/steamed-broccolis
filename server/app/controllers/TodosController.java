@@ -140,7 +140,8 @@ public class TodosController extends Controller {
 
         try {
             this.todosCollection.update(idQuery).with(insertQuery);
-            return ok();
+            models.Todo todo = this.todosCollection.findOne(idQuery).as(models.Todo.class);
+            return ok(Json.toJson(todo));
         } catch(Exception e) {
             return internalServerError(e.getMessage());
         }

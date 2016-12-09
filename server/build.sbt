@@ -25,6 +25,8 @@ libraryDependencies += "com.fasterxml.jackson.core" % "jackson-databind" % "2.5.
 
 libraryDependencies += "com.fasterxml.jackson.core" % "jackson-annotations" % "2.5.0"
 
+libraryDependencies += "org.lesscss" % "lesscss" % "1.7.0.1.1"
+
 // escape strings
 libraryDependencies += "org.apache.commons" % "commons-lang3" % "3.1"
 

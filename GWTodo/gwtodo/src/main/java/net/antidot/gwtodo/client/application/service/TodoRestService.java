@@ -40,4 +40,8 @@ public interface TodoRestService extends RestService {
     @Path("/todos")
     public void addTodo(@QueryParam("text") String text, MethodCallback<Todo> callback);
 
+    @PUT
+    @Path("/todos/todo/{id}")
+    public void updateTodo(@PathParam("id") String id, @QueryParam("text") String text, MethodCallback<Todo> callback);
+
 }
