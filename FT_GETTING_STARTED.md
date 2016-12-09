@@ -9,7 +9,7 @@ GETTING STARTED WITH FT TOOLS
 Resources
 ---------
 
-1. JAVA
+### JAVA
 
 You will need to install JAVA SDK (version >= 8)
 
@@ -31,7 +31,7 @@ If your JAVA version is not recognized, you can install the sdk you previously d
   sudo update -alternatives --install <path_to_java_executable_e.g._/usr/bin/java> <name_of_your_sdk> <path_to_your_new_sdk> <priority>
 ```
 
-2. MongoDB
+### MongoDB
 
 Install MongoDB with the command line.
 ```
@@ -62,15 +62,15 @@ NB: On OSX, you don't have the `service` command to stop/start/restart and handl
   brew services [start|stop|restart] <service_name>
 ```
 
-3. Play Framework
+### Play Framework
 
 FT team is developing the software using IntelliJ IDEA. You won't need to install or do anything about Play, as the IDE allows you to create automatically a Play project, without doing anything else.
 
-4. Google Web Toolkit
+### Google Web Toolkit
 
 Download the GWT library from the official website and extract it.
 
-5. IntelliJ IDEA - Ultimate version
+### IntelliJ IDEA - Ultimate version
 
 Download and install IntelliJ IDEA. You won't be able to create Play or GWT projects with the community (free) version. So just download the Ultimate version, which is free for one month.
 
@@ -210,7 +210,8 @@ You will be able to import the project generated into IntelliJ when it's finish:
 
 You will probably need to specify your GWT JDK path to IntelliJ. Don't forget to use Java 8 in IntelliJ.
 
-
 #### 2.2 Run the client [IntelliJ]
+
+
 
 #### 2.3 GWT Structure
