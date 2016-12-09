@@ -84,15 +84,15 @@ FT project is split into 2 parts:
 
 The first thing to do is create 2 different projects, one for the server and one for the client. We'll need to make this 2 projects work together.
 
-1. Play server
+### 1. Play server
 
-1.1 Create the project on [IntelliJ]
+#### 1.1 Create the project on [IntelliJ]
 
 * File > New > Project
 * Select JAVA on the left Panel, then PLAY 2.X on the right panel
 * Enter project name & location
 
-1.2 Run the server [IntelliJ]
+#### 1.2 Run the server [IntelliJ]
 
 * Run > Run...
 * Edit configurations
@@ -100,10 +100,46 @@ The first thing to do is create 2 different projects, one for the server and one
 * Play 2 App
 * Enter the name and select the module to build (e.g. your project)
 
-1.3 Server configuration & structure
+#### 1.3 Server configuration & structure
 
+The server is organized under the following structure:
 
-2. GWT project
+```
+.
+├── app
+│   ├── controllers
+│   └── views
+├── build.sbt
+├── conf
+│   ├── application.conf
+│   └── routes
+├── project
+│   ├── build.properties
+│   ├── plugins.sbt
+│   ├── project
+│   └── target
+├── public
+│   ├── images
+│   ├── javascripts
+│   └── stylesheets
+├── src
+├── target
+│   ├── resolution-cache
+│   └── streams
+└── test
+    ├── ApplicationTest.java
+    └── IntegrationTest.java
+```
+
+* `app/`: Application directory which contains the Models, Views and Controllers of the server. The App will be developed here.
+* `build.sbt`: Building file containing the dependencies.
+* `conf/`: Contains the application & the routes of the server.
+* `project/`: Project configuration.
+* `public/`: Statics assets (stylesheets, images, javascript, ...).
+* `target/`: Folder containing the compiled sources.
+* `test/`: Tests.
+
+### 2. GWT project
 
 Resources
 ---------
