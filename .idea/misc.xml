@@ -3,11 +3,13 @@
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="gwt" url="file://$PROJECT_DIR$/../new-project-name" />
     <file type="web" url="file://$PROJECT_DIR$/../new-project-name" />
+    <file type="web" url="file://$PROJECT_DIR$/GWTodo/gwtodo" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/../new-project-name/pom.xml" />
+        <option value="$PROJECT_DIR$/GWTodo/gwtodo/pom.xml" />
       </list>
     </option>
   </component>

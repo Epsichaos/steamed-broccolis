@@ -188,7 +188,7 @@ collection.insert(query)
 
 ### 2. GWT project
 
-#### 2.0 configuration
+#### 2.0 Configuration
 
 Set your $PATH variable and add GWT path in your `~/.bashrc`:
 
